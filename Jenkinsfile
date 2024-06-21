@@ -6,7 +6,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    mvn clean install
+                     echo "This is Bulid stage"
                 '''
             }
         }
@@ -39,7 +39,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    mv /home/ec2-user/boxfuse-sample-java-war-hello/target/hello-1.0.war /usr/tomcat/tomcat10/webapps
+                    mv boxfuse-sample-java-war-hello/target/hello-1.0.war /usr/tomcat/tomcat10/webapps
                     sleep 5
                 '''
             }
