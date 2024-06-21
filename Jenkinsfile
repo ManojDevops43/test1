@@ -39,7 +39,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    echo "This is Deploy Stage"
+                    mv /home/ec2-user/boxfuse-sample-java-war-hello/target/hello-1.0.war /usr/tomcat/tomcat10/webapps
                     sleep 5
                 '''
             }
