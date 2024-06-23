@@ -30,15 +30,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                 script {
-                    def tomcatDir = '/usr/tomcat/tomcat10' // Adjust path as per your Tomcat installation
-                    def warFile = sh(returnStdout: true, script: 'ls target/*.war').trim()
-
-                    sh "sudo cp ${warFile} ${tomcatDir}/webapps/"
-                }
-                
-                // Restart Tomcat to deploy the application (if necessary)
-                sh 'sudo systemctl restart tomcat'
+                 sh '''
+                            echo "This is deploy stage 2"
+                        '''
             }
             }
         }
