@@ -35,7 +35,7 @@ pipeline {
             def tomcatWebappsPath = '/usr/tomcat/tomcat10/webapps'
 
             // Copy the WAR file to the Tomcat webapps directory
-            sh "cp ${warFilePath} ${tomcatWebappsPath}"
+            sh "sudo cp ${warFilePath} ${tomcatWebappsPath}"
             }
             }
         }
