@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    echo "This is Build stage"
+                    mvn clean install
                 '''
             }
         }
@@ -31,7 +31,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    mv /var/lib/jenkins/workspace/pipeline2/target/hello-1.0.war /usr/tomcat/tomcat10/webapps
+                    echo "This is deploy stage"
                 '''
             }
         }
