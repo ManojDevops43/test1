@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'slave2'
-    }
+    agent any
     stages {
         stage('Build') {
             steps {
@@ -13,9 +11,7 @@ pipeline {
         stage('Parallel Test') {
             parallel {
                 stage('Test1') {
-                    agent {
-                        label 'slave2'
-                    }
+                    agent any
                     steps {
                         sh '''
                             echo "This is Test stage 1"
@@ -24,9 +20,7 @@ pipeline {
                     }
                 }
                 stage('Test2') {
-                    agent {
-                        label 'slave2'
-                    }
+                    agent any
                     steps {
                         sh '''
                             echo "This is Test stage 2"
@@ -39,7 +33,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    mv boxfuse-sample-java-war-hello/target/hello-1.0.war /usr/tomcat/tomcat10/webapps
+                    echo "This is deploy stage"
                     sleep 5
                 '''
             }
