@@ -30,9 +30,16 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh '''
-                   sudo mv /var/lib/jenkins/workspace/pipeline2/target/hello-1.0.war /usr/tomcat/tomcat10/webapps 
-                '''
+                 script {
+                    def tomcatDir = '/usr/tomcat/tomcat10' // Adjust path as per your Tomcat installation
+                    def warFile = sh(returnStdout: true, script: 'ls target/*.war').trim()
+
+                    sh "sudo cp ${warFile} ${tomcatDir}/webapps/"
+                }
+                
+                // Restart Tomcat to deploy the application (if necessary)
+                sh 'sudo systemctl restart tomcat'
+            }
             }
         }
     }
