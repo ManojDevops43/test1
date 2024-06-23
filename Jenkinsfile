@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                     echo "This is build stage"
+                     mvn clean install
                 '''
             }
         }
@@ -15,7 +15,6 @@ pipeline {
                     steps {
                         sh '''
                             echo "This is Test stage 1"
-                            sleep 5
                         '''
                     }
                 }
@@ -24,7 +23,6 @@ pipeline {
                     steps {
                         sh '''
                             echo "This is Test stage 2"
-                            sleep 5
                         '''
                     }
                 }
@@ -33,8 +31,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    echo "This is deploy stage"
-                    sleep 5
+                    mv /var/lib/jenkins/workspace/pipeline2/target/hello-1.0.war /usr/tomcat/tomcat10/webapps
                 '''
             }
         }
