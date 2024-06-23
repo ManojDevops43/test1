@@ -30,9 +30,12 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                 sh '''
-                            echo "This is deploy stage 2"
-                        '''
+                 script {
+            def warFilePath = '/var/lib/jenkins/workspace/pipeline2/target/hello-1.0.war'
+            def tomcatWebappsPath = '/usr/tomcat/tomcat10/webapps'
+
+            // Copy the WAR file to the Tomcat webapps directory
+            sh "cp ${warFilePath} ${tomcatWebappsPath}"
             }
             }
         }
