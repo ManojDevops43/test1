@@ -3,42 +3,18 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh '''
-                    mvn clean install
-                '''
+                sh 'mvn clean package'
             }
         }
-        stage('Parallel Test') {
-            parallel {
-                stage('Test1') {
-                    agent any
-                    steps {
-                        sh '''
-                            echo "This is Test stage 1"
-                        '''
-                    }
-                }
-                stage('Test2') {
-                    agent any
-                    steps {
-                        sh '''
-                            echo "This is Test stage 2"
-                        '''
-                    }
-                }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
             }
         }
         stage('Deploy') {
             steps {
-                 script {
-            def warFilePath = '/var/lib/jenkins/workspace/pipeline2/target/hello-1.0.war'
-            def tomcatWebappsPath = '/usr/tomcat/tomcat10/webapps'
-
-            // Copy the WAR file to the Tomcat webapps directory
-            sh "sudo -S cp ${warFilePath} ${tomcatWebappsPath}"
-            }
+                sh 'mv /var/lib/jenkins/workspace/pipeline2/target/hello-1.0.war /usr/tomcat/tomcat10/webapps/'
             }
         }
     }
 }
-
